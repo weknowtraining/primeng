@@ -7,6 +7,7 @@ import {ButtonModule} from '../button/button';
 import {Confirmation} from '../common/confirmation';
 import {ConfirmationService} from '../common/confirmationservice';
 import {Subscription}   from 'rxjs';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-confirmDialog',
@@ -294,7 +295,7 @@ export class ConfirmDialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
+    imports: [CommonModule,ButtonModule,YardstickModule],
     exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })

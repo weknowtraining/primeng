@@ -1,6 +1,7 @@
 import {NgModule,Directive,ElementRef,HostListener,Input,DoCheck,Optional} from '@angular/core';
 import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Directive({
     selector: '[pInputText]',
@@ -35,7 +36,7 @@ export class InputText implements DoCheck {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [InputText],
     declarations: [InputText]
 })

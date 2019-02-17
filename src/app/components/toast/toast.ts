@@ -6,6 +6,7 @@ import {PrimeTemplate,SharedModule} from '../common/shared';
 import {MessageService} from '../common/messageservice';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-toastItem',
@@ -271,7 +272,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [Toast,SharedModule],
     declarations: [Toast,ToastItem]
 })

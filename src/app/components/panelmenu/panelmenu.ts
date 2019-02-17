@@ -3,6 +3,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {MenuItem} from '../common/menuitem';
 import {RouterModule} from '@angular/router';
+import { YardstickModule } from '../yardstick/yardstick';
 
 export class BasePanelMenuItem {
         
@@ -161,7 +162,7 @@ export class PanelMenu extends BasePanelMenuItem {
 }
 
 @NgModule({
-    imports: [CommonModule,RouterModule],
+    imports: [CommonModule,RouterModule,YardstickModule],
     exports: [PanelMenu,RouterModule],
     declarations: [PanelMenu,PanelMenuSub]
 })

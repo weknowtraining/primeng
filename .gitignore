@@ -5,7 +5,8 @@
 /tmp
 /out-tsc
 /components
-/resources
+# DH: We'll compile and commit resources to make our lives easier
+# /resources
 /aot
 
 # dependencies

@@ -1,9 +1,10 @@
-import {NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef} from '@angular/core';
+import {NgModule,Component,OnInit,ElementRef,Input,Output,SimpleChange,EventEmitter,TemplateRef, Directive} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DropdownModule} from '../dropdown/dropdown';
 import {SelectItem} from '../common/selectitem';
 import {SharedModule} from '../common/shared';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-paginator',
@@ -226,9 +227,24 @@ export class Paginator implements OnInit {
     }
 }
 
+// DH: This has to be here unless we want to restructure this entire project.
+@Directive({
+    // tslint:disable-next-line
+    selector: 'p-paginator'
+})
+export class YardstickPaginator implements OnInit {
+    constructor(private paginator: Paginator) { }
+
+    ngOnInit() {
+        // this.paginator = this.injector.get(Paginator);
+        this.paginator.rowsPerPageOptions = [10, 25, 50, 100];
+        this.paginator.rows = 25;
+    }
+}
+
 @NgModule({
-    imports: [CommonModule,DropdownModule,FormsModule,SharedModule],
-    exports: [Paginator,DropdownModule,FormsModule,SharedModule],
-    declarations: [Paginator]
+    imports: [CommonModule,DropdownModule,FormsModule,SharedModule,YardstickModule],
+    exports: [Paginator,DropdownModule,FormsModule,SharedModule,YardstickPaginator],
+    declarations: [Paginator,YardstickPaginator]
 })
 export class PaginatorModule { }

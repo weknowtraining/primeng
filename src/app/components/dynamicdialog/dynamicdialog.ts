@@ -5,6 +5,7 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from '../dom/domhandler';
 import { DynamicDialogRef } from './dynamicdialog-ref';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
 	selector: 'p-dynamicDialog',
@@ -167,7 +168,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-	imports: [CommonModule],
+	imports: [CommonModule,YardstickModule],
 	declarations: [DynamicDialogComponent, DynamicDialogContent],
 	entryComponents: [DynamicDialogComponent]
 })

@@ -11,6 +11,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Injectable } from '@angular/core';
 import { BlockableUI } from '../common/blockableui';
 import { Subject, Subscription } from 'rxjs';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Injectable()
 export class TableService {
@@ -3593,7 +3594,7 @@ export class ReorderableRow implements AfterViewInit {
 }
 
 @NgModule({
-    imports: [CommonModule,PaginatorModule],
+    imports: [CommonModule,PaginatorModule,YardstickModule],
     exports: [Table,SharedModule,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick],
     declarations: [Table,SortableColumn,SelectableRow,RowToggler,ContextMenuRow,ResizableColumn,ReorderableColumn,EditableColumn,CellEditor,TableBody,ScrollableView,SortIcon,TableRadioButton,TableCheckbox,TableHeaderCheckbox,ReorderableRowHandle,ReorderableRow,SelectableRowDblClick]
 })
