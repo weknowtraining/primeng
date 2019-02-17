@@ -1,2 +1,5 @@
 {
+    "typescriptHero.imports.organizeOnSave": false,
+    "tslint.autoFixOnSave": false,
+    "editor.formatOnSave": false,
 }
