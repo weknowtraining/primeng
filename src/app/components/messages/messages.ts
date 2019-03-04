@@ -4,6 +4,7 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message} from '../common/message';
 import {MessageService} from '../common/messageservice';
 import {Subscription} from 'rxjs';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-messages',
@@ -155,7 +156,7 @@ export class Messages implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [Messages],
     declarations: [Messages]
 })
