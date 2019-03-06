@@ -73,6 +73,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 this.el.nativeElement.addEventListener('focus', this.focusListener);
                 this.el.nativeElement.addEventListener('blur', this.blurListener);
             }
+            else if (this.tooltipEvent === 'click') {
+                this.clickListener = this.activate.bind(this);
+                this.el.nativeElement.addEventListener('click', this.clickListener);
+            }
         });
     }
 
