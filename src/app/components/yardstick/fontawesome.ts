@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 
 @Directive({
     // tslint:disable-next-line
-    selector: '.pi, .ui-dropdown-trigger-icon'
+    selector: '.pi, .ui-dropdown-trigger-icon, .ui-radiobutton-icon, .ui-chkbox-icon'
 })
 export class FontAwesomeDirective implements OnInit, OnDestroy {
     observer: MutationObserver;
@@ -22,9 +22,7 @@ export class FontAwesomeDirective implements OnInit, OnDestroy {
         this.setFaClasses();
 
         // Setup an observer to watch for future changes.
-        this.observer = new MutationObserver(() => {
-            this.setFaClasses();
-        });
+        this.observer = new MutationObserver(this.setFaClasses);
 
         // Actually start watching the element.
         this.observer.observe(this.native, { attributeFilter: ['class'] });
@@ -35,7 +33,7 @@ export class FontAwesomeDirective implements OnInit, OnDestroy {
         this.observer.disconnect();
     }
 
-    setFaClasses() {
+    setFaClasses = () => {
         // Figure out what classes SHOULD be on element.
         const classesToEnsurePresent: string[] = [];
         const activeFaClasses: string[] = [];
