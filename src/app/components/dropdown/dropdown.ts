@@ -1,3 +1,4 @@
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,AfterViewChecked,OnDestroy,Input,Output,Renderer2,EventEmitter,ContentChildren,
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -16,24 +17,54 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+    selector: 'p-dropdownItem',
+    template: `
+        <li (click)="onOptionClick($event)" role="option"
+            [attr.aria-label]="option.label"
+            [ngStyle]="{'height': itemSize + 'px'}"
+            [ngClass]="{'ui-dropdown-item ui-corner-all':true,
+                                                'ui-state-highlight': selected,
+                                                'ui-state-disabled':(option.disabled),
+                                                'ui-dropdown-item-empty': !option.label||option.label.length === 0}">
+            <span *ngIf="!template">{{option.label||'empty'}}</span>
+            <ng-container *ngTemplateOutlet="template; context: {$implicit: option}"></ng-container>
+        </li>
+    `
+})
+export class DropdownItem {
+
+    @Input() option: SelectItem;
+
+    @Input() selected: boolean;
+
+    @Input() disabled: boolean;
+
+    @Input() visible: boolean;
+
+    @Input() itemSize: number;
+
+    @Input() template: TemplateRef<any>;
+
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+
+
+    onOptionClick(event: Event) {
+        this.onClick.emit({
+            originalEvent: event,
+            option: this.option
+        });
+    }
+}
+
+
+
+@Component({
     selector: 'p-dropdown',
     template: `
          <div #container [ngClass]="{'ui-dropdown ui-widget ui-state-default ui-corner-all ui-helper-clearfix':true,
             'ui-state-disabled':disabled, 'ui-dropdown-open':overlayVisible, 'ui-state-focus':focused, 'ui-dropdown-clearable': showClear && !disabled}"
             (click)="onMouseclick($event)" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-helper-hidden-accessible" *ngIf="autoWidth">
-                <select [attr.id]="selectId" [required]="required" [attr.name]="name" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" tabindex="-1" aria-hidden="true">
-                    <option *ngIf="placeholder">{{placeholder}}</option>
-                    <ng-container *ngIf="group">
-                        <optgroup *ngFor="let option of options" [attr.label]="option.label">
-                            <option *ngFor="let option of option.items" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
-                        <optgroup>
-                    </ng-container>
-                    <ng-container *ngIf="!group">
-                        <option *ngFor="let option of options" [value]="option.value" [selected]="selectedOption == option">{{option.label}}</option>
-                    </ng-container>
-                </select>
-            </div>
             <div class="ui-helper-hidden-accessible">
                 <input #in [attr.id]="inputId" type="text" [attr.aria-label]="selectedOption ? selectedOption.label : ' '" readonly (focus)="onInputFocus($event)" aria-haspopup="listbox"
                     (blur)="onInputBlur($event)" (keydown)="onKeydown($event, true)" [disabled]="disabled" [attr.tabindex]="tabindex" [attr.autofocus]="autofocus">
@@ -55,7 +86,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                     (keydown.enter)="$event.preventDefault()" (keydown)="onKeydown($event, false)" (input)="onFilter($event)" [attr.aria-label]="ariaFilterLabel">
                     <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
-                <div class="ui-dropdown-items-wrapper" [style.max-height]="scrollHeight||'auto'">
+                <div class="ui-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox">
                         <ng-container *ngIf="group">
                             <ng-template ngFor let-optgroup [ngForOf]="optionsToDisplay">
@@ -70,14 +101,23 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
                             <ng-container *ngTemplateOutlet="itemslist; context: {$implicit: optionsToDisplay, selectedOption: selectedOption}"></ng-container>
                         </ng-container>
                         <ng-template #itemslist let-options let-selectedOption="selectedOption">
-                            <li *ngFor="let option of options;let i=index"  (click)="onItemClick($event, option)" role="option" [attr.aria-label]="option.label"
-                                    [ngClass]="{'ui-dropdown-item ui-corner-all':true,
-                                                'ui-state-highlight':(selectedOption == option),
-                                                'ui-state-disabled':(option.disabled),
-                                                'ui-dropdown-item-empty':!option.label||option.label.length === 0}">
-                                <span *ngIf="!itemTemplate">{{option.label||'empty'}}</span>
-                                <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: option}"></ng-container>
-                            </li>
+
+                            <ng-container *ngIf="!virtualScroll; else virtualScrollList">
+                                <ng-template ngFor let-option let-i="index" [ngForOf]="options">
+                                    <p-dropdownItem [option]="option" [selected]="selectedOption == option" 
+                                                    (onClick)="onItemClick($event)"
+                                                    [template]="itemTemplate"></p-dropdownItem>
+                                </ng-template>
+                            </ng-container>
+                            <ng-template #virtualScrollList>
+                                <cdk-virtual-scroll-viewport #viewport [ngStyle]="{'height': scrollHeight}" [itemSize]="itemSize" *ngIf="virtualScroll && optionsToDisplay && optionsToDisplay.length">
+                                    <ng-container *cdkVirtualFor="let option of options; let i = index; let c = count; let f = first; let l = last; let e = even; let o = odd">         
+                                        <p-dropdownItem [option]="option" [selected]="selectedOption == option"
+                                                                   (onClick)="onItemClick($event)"
+                                                                   [template]="itemTemplate"></p-dropdownItem>
+                                    </ng-container>
+                                </cdk-virtual-scroll-viewport>
+                            </ng-template>
                         </ng-template>
                         <li *ngIf="filter && optionsToDisplay && optionsToDisplay.length === 0" class="ui-dropdown-empty-message">{{emptyFilterMessage}}</li>
                     </ul>
@@ -124,9 +164,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @Input() disabled: boolean;
     
     @Input() readonly: boolean;
-    
-    @Input() autoWidth: boolean = true;
-    
+
     @Input() required: boolean;
     
     @Input() editable: boolean;
@@ -163,6 +201,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     @Input() emptyFilterMessage: string = 'No results found';
 
+    @Input() virtualScroll: boolean;
+
+    @Input() itemSize: number;
+
     @Input() autoZIndex: boolean = true;
     
     @Input() baseZIndex: number = 0;
@@ -194,6 +236,16 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     @ViewChild('editableInput') editableInputViewChild: ElementRef;
     
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    private _autoWidth: boolean;
+
+    @Input() get autoWidth(): boolean {
+        return this._autoWidth;
+    }
+    set utc(_autoWidth: boolean) {
+        this._autoWidth = _autoWidth;
+        console.log("Setting autoWidth has no effect as automatic width calculation is removed for better perfomance.");
+    }
 
     overlay: HTMLDivElement;
 
@@ -306,8 +358,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (this.editable) {
             this.updateEditableLabel();
         }
-        
-        this.updateDimensions();
     }
     
     get label(): string {
@@ -319,10 +369,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.editableInputViewChild.nativeElement.value = (this.selectedOption ? this.selectedOption.label : this.value||'');
         }
     }
-    
-    onItemClick(event, option) {
+
+    onItemClick(event) {
+        const option=event.option;
         this.itemClick = true;
-        
+
         if (!option.disabled) {
             this.selectItem(event, option);
             this.focusViewChild.nativeElement.focus();
@@ -333,39 +384,33 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
             this.hide();
         }, 150);
     }
-    
+
     selectItem(event, option) {
         if (this.selectedOption != option) {
             this.selectedOption = option;
             this.value = option.value;
-            
+
             this.onModelChange(this.value);
             this.updateEditableLabel();
             this.onChange.emit({
-                originalEvent: event,
+                originalEvent: event.originalEvent,
                 value: this.value
             });
         }
     }
     
-    ngAfterViewChecked() {
-        if (this.autoWidth && !this.dimensionsUpdated) {
-            this.updateDimensions();
-        }
-        
+    ngAfterViewChecked() {        
         if (this.optionsChanged && this.overlayVisible) {
             this.optionsChanged = false;
             
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.updateDimensions();
                     this.alignOverlay();
                 }, 1);
             });
         }
         
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            this.updateDimensions();
             let selectedItem = DomHandler.findSingle(this.overlay, 'li.ui-state-highlight');
             if (selectedItem) {
                 DomHandler.scrollInView(this.itemsWrapper, DomHandler.findSingle(this.overlay, 'li.ui-state-highlight'));
@@ -415,16 +460,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.disabled = val;
     }
     
-    updateDimensions() {
-        if (this.autoWidth && this.el.nativeElement && this.el.nativeElement.children[0] && this.el.nativeElement.offsetParent) {
-            let select = DomHandler.findSingle(this.el.nativeElement, 'select');
-            if (select && !this.style||(this.style && (!this.style['width']&&!this.style['min-width']))) {
-                this.el.nativeElement.children[0].style.width = select.offsetWidth + 30 + 'px';
-            }
-            this.dimensionsUpdated = true;
-        }
-    }
-    
     onMouseclick(event) {
         if (this.disabled||this.readonly) {
             return;
@@ -438,18 +473,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         if (!this.itemClick && !this.clearClick) {
             this.focusViewChild.nativeElement.focus();
             
-            if (this.overlayVisible) {
+            if (this.overlayVisible)
                 this.hide();
-            }
-            else {
+            else
                 this.show();
-
-                setTimeout(() => {
-                    if (this.filterViewChild != undefined) {
-                        this.filterViewChild.nativeElement.focus();
-                    }
-                }, 200);
-            }
         }
     }
     
@@ -496,6 +523,10 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
                     if (selectedListItem) {
                         DomHandler.scrollInView(this.itemsWrapper, selectedListItem);
                     }
+                }
+
+                if (this.filterViewChild && this.filterViewChild.nativeElement) {
+                    this.filterViewChild.nativeElement.focus();
                 }
 
                 this.onShow.emit(event);
@@ -960,7 +991,9 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
     }
 
     onWindowResize() {
-        this.hide();
+        if (!DomHandler.isAndroid()) {
+            this.hide();
+        }
     }
 
     updateFilledState() {
@@ -994,8 +1027,8 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,YardstickModule],
-    exports: [Dropdown,SharedModule],
-    declarations: [Dropdown]
+    imports: [CommonModule,SharedModule,ScrollingModule,YardstickModule],
+    exports: [Dropdown,SharedModule,ScrollingModule],
+    declarations: [Dropdown,DropdownItem]
 })
 export class DropdownModule { }
