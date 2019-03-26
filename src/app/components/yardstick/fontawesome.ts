@@ -30,7 +30,9 @@ export class FontAwesomeDirective implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // Remember to disconnect when we go away.
-        this.observer.disconnect();
+        if (this.observer) {
+            this.observer.disconnect();
+        }
     }
 
     setFaClasses = () => {
