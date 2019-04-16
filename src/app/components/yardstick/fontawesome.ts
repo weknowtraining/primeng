@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
 
 @Directive({
     // tslint:disable-next-line
-    selector: '.pi, .ui-dropdown-trigger-icon, .ui-radiobutton-icon, .ui-chkbox-icon'
+    selector: '.pi, .ui-dropdown-trigger-icon, .ui-radiobutton-icon, .ui-chkbox-icon, .ui-message-icon'
 })
 export class FontAwesomeDirective implements OnInit, OnDestroy {
     observer: MutationObserver;

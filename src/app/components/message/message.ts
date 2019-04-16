@@ -1,5 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { YardstickModule } from '@primeng/yardstick/yardstick';
 
 @Component({
     selector: 'p-message',
@@ -52,7 +53,7 @@ export class UIMessage {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [UIMessage],
     declarations: [UIMessage]
 })
