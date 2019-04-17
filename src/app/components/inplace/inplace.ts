@@ -1,6 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from '../button/button';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -64,7 +65,7 @@ export class Inplace {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule],
+    imports: [CommonModule,ButtonModule,YardstickModule],
     exports: [Inplace,InplaceDisplay,InplaceContent,ButtonModule],
     declarations: [Inplace,InplaceDisplay,InplaceContent]
 })
