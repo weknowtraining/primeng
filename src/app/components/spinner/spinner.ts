@@ -2,6 +2,7 @@ import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRe
 import {CommonModule} from '@angular/common';
 import {InputTextModule} from '../inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { YardstickModule } from '../yardstick/yardstick';
 
 export const SPINNER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -292,7 +293,7 @@ export class Spinner implements OnInit,ControlValueAccessor {
 
 
 @NgModule({
-    imports: [CommonModule,InputTextModule],
+    imports: [CommonModule,InputTextModule,YardstickModule],
     exports: [Spinner],
     declarations: [Spinner]
 })
