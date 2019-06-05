@@ -36,11 +36,11 @@ import { YardstickModule } from '../yardstick/yardstick';
     animations: [
         trigger('animation', [
             state('void', style({
-                transform: 'translate3d(-50%, -25%, 0) scale(0.9)',
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(0.7)',
                 opacity: 0
             })),
             state('visible', style({
-                transform: 'translateX(-50%) translateY(-50%)',
+                transform: 'translateX(-50%) translateY(-50%) translateZ(0) scale(1)',
                 opacity: 1
             })),
             transition('* => *', animate('{{transitionParams}}'))
@@ -77,7 +77,6 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() rejectButtonStyleClass: string;
 
-   
     @Input() closeOnEscape: boolean = true;
 
     @Input() blockScroll: boolean = true;
@@ -94,11 +93,11 @@ export class ConfirmDialog implements OnDestroy {
     
     @Input() baseZIndex: number = 0;
     
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.25, 0.8, 0.25, 1)';
+    @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
 
-    @ContentChild(Footer) footer;
+    @ContentChild(Footer, { static: false }) footer;
 
-    @ViewChild('content') contentViewChild: ElementRef;
+    @ViewChild('content', { static: false }) contentViewChild: ElementRef;
     
     confirmation: Confirmation;
         
@@ -263,7 +262,7 @@ export class ConfirmDialog implements OnDestroy {
         if (this.closeOnEscape && this.closable && !this.documentEscapeListener) {
             this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) => {
                 if (event.which == 27) {
-                    if (parseInt(this.container.style.zIndex) === DomHandler.zindex && this.visible) {
+                    if (parseInt(this.container.style.zIndex) === (DomHandler.zindex + this.baseZIndex) && this.visible) {
                         this.close(event);
                     }
                 }

@@ -90,13 +90,15 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
+    @Output() onClick: EventEmitter<any> = new EventEmitter();
+
     @Output() onDblClick: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild('headerchkbox') headerCheckboxViewChild: ElementRef;
+    @ViewChild('headerchkbox', { static: false }) headerCheckboxViewChild: ElementRef;
 
-    @ContentChild(Header) headerFacet;
+    @ContentChild(Header, { static: false }) headerFacet;
 
-    @ContentChild(Footer) footerFacet;
+    @ContentChild(Footer, { static: false }) footerFacet;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
@@ -184,6 +186,10 @@ export class Listbox implements AfterContentInit, ControlValueAccessor {
         else {
             this.onOptionClickSingle(event, option);
         }
+        this.onClick.emit({
+            originalEvent: event,
+            value: this.value
+        });
         this.optionTouched = false;
     }
 

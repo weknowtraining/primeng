@@ -38,7 +38,11 @@ export class ContextMenuSub {
 
     @Input() root: boolean;
 
-    constructor(@Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) { }
+    contextMenu: ContextMenu;
+
+    constructor(@Inject(forwardRef(() => ContextMenu)) contextMenu) {
+        this.contextMenu = contextMenu as ContextMenu;
+    }
 
     activeItem: any;
 
@@ -47,16 +51,17 @@ export class ContextMenuSub {
     hideTimeout: any;
 
     onItemMouseEnter(event, item, menuitem) {
-        if (menuitem.disabled) {
-            return;
-        }
-
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
             this.hideTimeout = null;
         }
 
         this.activeItem = item;
+
+        if (menuitem.disabled) {
+            return;
+        }        
+        
         let nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
             let sublist = nextElement.children[0];
@@ -147,7 +152,7 @@ export class ContextMenu implements AfterViewInit, OnDestroy {
 
     @Input() triggerEvent: string = 'contextmenu';
 
-    @ViewChild('container') containerViewChild: ElementRef;
+    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
 
     documentClickListener: any;
 

@@ -77,13 +77,15 @@ describe('Spinner', () => {
     });
 
     it('Should display the formated value with thousand and decimal separator when input is filled by value 1234.1234', () => {
+        fixture.detectChanges();
+
         spinner.precision = 4;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1234.1234';
         triggerEvent(spinnerInput, 'input');
 
         fixture.detectChanges();
-        expect(spinner.value).toEqual('1234.1234')
+        expect(spinner.value).toEqual(1234.1234);
     });
     
     it('Should disabled', () => {
@@ -100,6 +102,8 @@ describe('Spinner', () => {
     });
 
     it('should value should not change.', () => {
+        fixture.detectChanges();
+
         spinner.disabled=true;
         const spinnerInput = <any>spinner.inputfieldViewChild.nativeElement;
         spinnerInput.value = '1';

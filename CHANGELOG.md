@@ -1,14 +1,133 @@
 # Change Log
 
+## [7.1.3](https://github.com/primefaces/primeng/tree/7.1.3) (2019-05-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.2...7.1.3)
+
+**Implemented New Features and Enhancements:**
+
+- State save and restore events for Table [\#7666](https://github.com/primefaces/primeng/issues/7666)
+- Improve relativePosition method in DomHandler [\#7653](https://github.com/primefaces/primeng/issues/7653)
+- Improve Galleria styling [\#7652](https://github.com/primefaces/primeng/issues/7652)
+- Left arrow press should focus parent on Tree [\#7619](https://github.com/primefaces/primeng/issues/7619)
+- Update dynamic dialog animations  [\#7598](https://github.com/primefaces/primeng/issues/7598)
+- Update confirmDialog animations [\#7597](https://github.com/primefaces/primeng/issues/7597)
+
+**Fixed bugs:**
+
+- InputMask's style not working [\#7664](https://github.com/primefaces/primeng/issues/7664)
+- The scroll bar is not moving correctly on the TurboTable with resizeMode="expand" [\#7659](https://github.com/primefaces/primeng/issues/7659)
+- Menu \(Popup\) - double click on item reloads the page [\#7648](https://github.com/primefaces/primeng/issues/7648)
+- p-spinner min/max validation on every keypress prevents manual input of value PrimeNG7.1.2 [\#7643](https://github.com/primefaces/primeng/issues/7643)
+- \[Spinner\] \(7.1.2\) Decimal spinner control marked as invalid in Firefox [\#7625](https://github.com/primefaces/primeng/issues/7625)
+- \[Spinner\] 7.1.2 introduces incompatible changes to spinner control [\#7624](https://github.com/primefaces/primeng/issues/7624)
+- The value of Spinner component is not always updated after being manually changed. [\#7623](https://github.com/primefaces/primeng/issues/7623)
+- Down arrow press on draggable Tree [\#7617](https://github.com/primefaces/primeng/issues/7617)
+- Spinner max length does not work in version 7.1.2 [\#7616](https://github.com/primefaces/primeng/issues/7616)
+- p-menubar without AutoDisplay not opening adjacent menu items [\#7600](https://github.com/primefaces/primeng/issues/7600)
+- p-dialog not considering content scroll height on resize [\#7573](https://github.com/primefaces/primeng/issues/7573)
+- Spinner doesn't get the state filled [\#7532](https://github.com/primefaces/primeng/issues/7532)
+- p-fileUpload component has bug on select file [\#7149](https://github.com/primefaces/primeng/issues/7149)
+
+**Unit Tests:**
+
+- DragDrop Unit Test [\#7656](https://github.com/primefaces/primeng/issues/7656)
+- TreeTable Unit Test [\#7649](https://github.com/primefaces/primeng/issues/7649)
+- DynamicDialog Unit Test [\#7630](https://github.com/primefaces/primeng/issues/7630)
+
+## [7.1.2](https://github.com/primefaces/primeng/tree/7.1.2) (2019-04-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.1...7.1.2)
+
+**Fixed bugs:**
+
+- Wrong cursor behavior on Calendar with month view [\#7568](https://github.com/primefaces/primeng/issues/7568)
+- Calendar navigator icons close the overlay [\#7566](https://github.com/primefaces/primeng/issues/7566)
+- With focustrap for dialog you cannot tab past hidden or disabled elements [\#7561](https://github.com/primefaces/primeng/issues/7561)
+- \[Calendar\]\[PrimeIcons\] - Chevrons lack tabindex which interrupts tabbing, empty href [\#6270](https://github.com/primefaces/primeng/issues/6270)
+
+## [7.1.1](https://github.com/primefaces/primeng/tree/7.1.1) (2019-04-17)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.0...7.1.1)
+
+**Implemented New Features and Enhancements:**
+
+- Add Ability to Expand All Table Rows on Header Click [\#6221](https://github.com/primefaces/primeng/issues/6221)
+- Improving Accessibility for Visually Impaired Users Via Aria Attributes [\#6103](https://github.com/primefaces/primeng/issues/6103)
+- Add onBlur and onFocus to RadioButton [\#7558](https://github.com/primefaces/primeng/issues/7558)
+- Pass total page count to paginator left and right templates [\#7552](https://github.com/primefaces/primeng/issues/7552)
+- Maximizable dialog container size improvement [\#7486](https://github.com/primefaces/primeng/issues/7486)
+- On Accordion, the disabled head can be focused on [\#7473](https://github.com/primefaces/primeng/issues/7473)
+- Update to FullCalendar 4.2.0 [\#7450](https://github.com/primefaces/primeng/issues/7450)
+- Update dialog animations [\#7447](https://github.com/primefaces/primeng/issues/7447)
+- Pagination bug when removing an item [\#7437](https://github.com/primefaces/primeng/issues/7437)
+- loadingBody template for TreeTable VirtualScroll [\#7426](https://github.com/primefaces/primeng/issues/7426)
+- Add virtualScroll feature to treeTable component [\#7056](https://github.com/primefaces/primeng/issues/7056)
+- Two-way binding support for "first" property of Table [\#6932](https://github.com/primefaces/primeng/issues/6932)
+- Add onOptionClick event to p-listbox [\#6161](https://github.com/primefaces/primeng/issues/6161)
+- Add currentPageReport option to Paginator [\#6070](https://github.com/primefaces/primeng/issues/6070)
+- Accessibility: aria-support for p-autocomplete advanced [\#6066](https://github.com/primefaces/primeng/issues/6066)
+- Picklist reordering direction [\#6015](https://github.com/primefaces/primeng/issues/6015)
+- Shift key selection for OrderList and PickList [\#6000](https://github.com/primefaces/primeng/issues/6000)
+- p-table Lazy load and multiple select with Shift does not select the correct rows [\#5995](https://github.com/primefaces/primeng/issues/5995)
+- FocusTrap for Dialog [\#4544](https://github.com/primefaces/primeng/issues/4544)
+
+**Fixed bugs:**
+
+- p-tree renders invalid html for accessibility [\#7550](https://github.com/primefaces/primeng/issues/7550)
+- ConfirmDialog are moving from side to center with Safari [\#7545](https://github.com/primefaces/primeng/issues/7545)
+- Three Unit tests are failed in a large display environment [\#7529](https://github.com/primefaces/primeng/issues/7529)
+- TieredMenu submenu not hiding when onPush enabled [\#7518](https://github.com/primefaces/primeng/issues/7518)
+- Table showcase documentation has minor error [\#7516](https://github.com/primefaces/primeng/issues/7516)
+- Maximized dialog can remain below other dialogs [\#7499](https://github.com/primefaces/primeng/issues/7499)
+- Context menu: submenu unexpectedly disappears [\#7485](https://github.com/primefaces/primeng/issues/7485)
+- Autoresize moves scroll position when too large [\#7481](https://github.com/primefaces/primeng/issues/7481)
+- Property ActiveIndex ignored in Galleria [\#7472](https://github.com/primefaces/primeng/issues/7472)
+- ExpressionChangedAfterItHasBeenCheckedError in dropdown [\#7455](https://github.com/primefaces/primeng/issues/7455)
+- p-spinner binds strings instead of numbers on manual input in PrimeNG 7.1.0 [\#7445](https://github.com/primefaces/primeng/issues/7445)
+- Dropdown: autoWidth property wrong name [\#7394](https://github.com/primefaces/primeng/issues/7394)
+- Calendar TouchUI doesn't open [\#7389](https://github.com/primefaces/primeng/issues/7389)
+- TypeError: Cannot read property 'nodeName' of null at Table.handleRowClick [\#7363](https://github.com/primefaces/primeng/issues/7363)
+- Weird behavior when expanding in treeTable [\#7362](https://github.com/primefaces/primeng/issues/7362)
+- Calendar touchUI on mobile devices - Cannot use due to keyboard popup [\#7358](https://github.com/primefaces/primeng/issues/7358)
+- p-panelMenu - Expression changed after checked [\#7351](https://github.com/primefaces/primeng/issues/7351)
+- Selecting row doesn't work with inplace [\#7335](https://github.com/primefaces/primeng/issues/7335)
+- selectedItemsLabel for Multiselect component plain text bug [\#7324](https://github.com/primefaces/primeng/issues/7324)
+- Input range disabled property bug on touch events [\#6026](https://github.com/primefaces/primeng/issues/6026)
+- Inputmask doesn't update model when invalid value is cleared [\#5994](https://github.com/primefaces/primeng/issues/5994)
+
+**Unit Tests:**
+
+- ContextMenu Unit Test [\#7512](https://github.com/primefaces/primeng/issues/7512)
+- KeyFilter Unit Test Improvement [\#7506](https://github.com/primefaces/primeng/issues/7506)
+- ProgressSpinner Unit Test  [\#7505](https://github.com/primefaces/primeng/issues/7505)
+- ColorPicker Unit Test [\#7501](https://github.com/primefaces/primeng/issues/7501)
+- ScrollPanel Unit Test [\#7462](https://github.com/primefaces/primeng/issues/7462)
+- Carousel Unit Test [\#7436](https://github.com/primefaces/primeng/issues/7436)
+- Tree Unit Test Improvement  [\#7414](https://github.com/primefaces/primeng/issues/7414)
+
+## [7.1.0](https://github.com/primefaces/primeng/tree/7.1.0) (2019-03-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/7.1.0-rc.1...7.1.0)
+
+**Fixed bugs:**
+
+- Horizontal scroll may cause misalignment when header elements receive focus [\#7376](https://github.com/primefaces/primeng/issues/7376)
+- Dropdown does not have 100% with under .ui-fluid [\#7373](https://github.com/primefaces/primeng/issues/7373)
+- Multiselect with \[selectionLimit\] = "1" throws exception [\#7221](https://github.com/primefaces/primeng/issues/7221)
+
 ## [7.1.0-rc.1](https://github.com/primefaces/primeng/tree/7.1.0-rc.1) (2019-03-05)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.5...7.1.0-rc.1)
 
-**Implemented New Features and Enhancements:**
+**Breaking changes:**
 
 - Remove autoWidth from Dropdown [\#7337](https://github.com/primefaces/primeng/issues/7337)
-- loadingBody template for Table VirtualScroll [\#7336](https://github.com/primefaces/primeng/issues/7336)
 - expandedRowKeys map value should be a boolean [\#7333](https://github.com/primefaces/primeng/issues/7333)
+
+**Implemented New Features and Enhancements:**
+
+- loadingBody template for Table VirtualScroll [\#7336](https://github.com/primefaces/primeng/issues/7336)
 - onShow and onHide events for Menu [\#7307](https://github.com/primefaces/primeng/issues/7307)
 - Turbo table column re-order: The drag and drop should not be possible on the same column [\#7295](https://github.com/primefaces/primeng/issues/7295)
 - dropdownIcon property for AutoComplete [\#7265](https://github.com/primefaces/primeng/issues/7265)
@@ -53,10 +172,13 @@
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/7.0.4...7.0.5)
 
+**Breaking changes:**
+
+- Reimplement ConfirmDialog Positioning [\#7164](https://github.com/primefaces/primeng/issues/7164)
+
 **Implemented New Features and Enhancements:**
 
 - Screen reader support for multiselect, dropdown and listbox options [\#7169](https://github.com/primefaces/primeng/issues/7169)
-- Reimplement ConfirmDialog Positioning [\#7164](https://github.com/primefaces/primeng/issues/7164)
 - Add showPassword prop to Password component [\#7083](https://github.com/primefaces/primeng/issues/7083)
 - DOM Handler causes incorrect offset in components that use "relativePosition" [\#6803](https://github.com/primefaces/primeng/issues/6803)
 - Expose Dialog icons for easier customization [\#6102](https://github.com/primefaces/primeng/issues/6102)
