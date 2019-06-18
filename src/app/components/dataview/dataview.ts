@@ -4,6 +4,7 @@ import {ObjectUtils} from '../utils/objectutils';
 import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
 import {PaginatorModule} from '../paginator/paginator';
 import {BlockableUI} from '../common/blockableui';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
     selector: 'p-dataView',
@@ -329,7 +330,7 @@ export class DataViewLayoutOptions  {
     }
 }
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule],
+    imports: [CommonModule,SharedModule,PaginatorModule, YardstickModule],
     exports: [DataView,SharedModule,DataViewLayoutOptions],
     declarations: [DataView,DataViewLayoutOptions]
 })
