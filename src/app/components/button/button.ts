@@ -1,6 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,HostBinding,HostListener,Input} from '@angular/core';
 import {DomHandler} from '../dom/domhandler';
 import {CommonModule} from '@angular/common';
+import { YardstickModule } from '../yardstick/yardstick';
 
 @Directive({
     selector: '[pButton]'
@@ -152,7 +153,7 @@ export class Button {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [ButtonDirective,Button],
     declarations: [ButtonDirective,Button]
 })

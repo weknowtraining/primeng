@@ -11,10 +11,10 @@ import {ObjectUtils} from '../utils/objectutils';
         <div [ngClass]="{'ui-orderlist ui-widget': true, 'ui-orderlist-controls-left': controlsPosition === 'left',
                     'ui-orderlist-controls-right': controlsPosition === 'right'}" [ngStyle]="style" [class]="styleClass">
             <div class="ui-orderlist-controls">
-                <button type="button" pButton icon="pi pi-angle-up" (click)="moveUp($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-up" (click)="moveTop($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-down" (click)="moveDown($event)"></button>
-                <button type="button" pButton icon="pi pi-angle-double-down" (click)="moveBottom($event)"></button>
+                <button type="button" pButton icon="fa fa-angle-up" (click)="moveUp($event)"></button>
+                <button type="button" pButton icon="fa fa-angle-double-up" (click)="moveTop($event)"></button>
+                <button type="button" pButton icon="fa fa-angle-down" (click)="moveDown($event)"></button>
+                <button type="button" pButton icon="fa fa-angle-double-down" (click)="moveBottom($event)"></button>
             </div>
             <div class="ui-orderlist-list-container">
                 <div class="ui-orderlist-caption ui-widget-header ui-corner-top" *ngIf="header">{{header}}</div>
