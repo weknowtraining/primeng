@@ -4,6 +4,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import {CommonModule} from '@angular/common';
 import {DomHandler} from '../dom/domhandler';
 import {Header,Footer,SharedModule} from '../common/shared';
+import { YardstickModule } from '../yardstick/yardstick';
 
 let idx: number = 0;
 
@@ -755,7 +756,7 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule,YardstickModule],
     exports: [Dialog,SharedModule],
     declarations: [Dialog]
 })
