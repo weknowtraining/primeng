@@ -4,6 +4,7 @@ import {SharedModule,PrimeTemplate} from '../common/shared';
 import {InputTextModule} from '../inputtext/inputtext';
 import {DomHandler} from '../dom/domhandler';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { YardstickModule } from '../yardstick/yardstick';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -243,7 +244,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,SharedModule],
+    imports: [CommonModule,InputTextModule,SharedModule,YardstickModule],
     exports: [Chips,InputTextModule,SharedModule],
     declarations: [Chips]
 })
