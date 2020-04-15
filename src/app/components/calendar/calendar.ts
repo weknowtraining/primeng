@@ -6,6 +6,7 @@ import {ButtonModule} from '../button/button';
 import {DomHandler} from '../dom/domhandler';
 import {SharedModule,PrimeTemplate} from '../common/shared';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { YardstickModule } from '../yardstick/yardstick';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -2109,7 +2110,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule],
+    imports: [CommonModule,ButtonModule,SharedModule,YardstickModule],
     exports: [Calendar,ButtonModule,SharedModule],
     declarations: [Calendar]
 })
