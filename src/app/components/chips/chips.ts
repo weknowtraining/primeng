@@ -1,9 +1,9 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,AfterContentInit,ContentChildren,QueryList,TemplateRef,forwardRef,ViewChild,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {SharedModule,PrimeTemplate} from 'primeng/api/public_api';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

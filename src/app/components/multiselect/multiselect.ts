@@ -2,15 +2,15 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
     forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy } from '@angular/core';
 import { trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SelectItem } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api';
+import { SelectItem } from 'primeng/api/public_api';
+import { DomHandler } from 'primeng/dom/domhandler';
+import { ObjectUtils } from 'primeng/utils/public_api';
+import { SharedModule, PrimeTemplate, Footer, Header } from 'primeng/api/public_api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { FilterUtils } from 'primeng/utils';
-import {TooltipModule} from 'primeng/tooltip';
-import { WKTModule } from '../wkt/wkt';
+import { FilterUtils } from 'primeng/utils/public_api';
+import {TooltipModule} from 'primeng/tooltip/tooltip';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

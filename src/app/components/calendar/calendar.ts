@@ -2,11 +2,11 @@ import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,EventEmitter
         ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {DomHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
+import {ButtonModule} from 'primeng/button/button';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {SharedModule,PrimeTemplate} from 'primeng/api/public_api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

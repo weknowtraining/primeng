@@ -12,7 +12,7 @@ export * from 'primeng/checkbox';
 export * from 'primeng/chips';
 export * from 'primeng/codehighlighter';
 export * from 'primeng/colorpicker';
-export * from 'primeng/api';
+export * from 'primeng/api/public_api';
 export * from 'primeng/confirmdialog';
 export * from 'primeng/contextmenu';
 export * from 'primeng/dataview';

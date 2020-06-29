@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,OnInit,Input,Output,EventEmitter,forwardRef,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {InputTextModule} from 'primeng/inputtext';
+import {InputTextModule} from 'primeng/inputtext/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 export const SPINNER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

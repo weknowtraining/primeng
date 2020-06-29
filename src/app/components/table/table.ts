@@ -1,19 +1,19 @@
 import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, AfterViewChecked, Directive, Optional, AfterContentInit,
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { PaginatorModule } from 'primeng/paginator';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
-import { SortMeta } from 'primeng/api';
-import { TableState } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api/public_api';
+import { PaginatorModule } from 'primeng/paginator/paginator';
+import { DomHandler } from 'primeng/dom/domhandler';
+import { ObjectUtils } from 'primeng/utils/public_api';
+import { SortMeta } from 'primeng/api/public_api';
+import { TableState } from 'primeng/api/public_api';
+import { FilterMetadata } from 'primeng/api/public_api';
 import { Injectable } from '@angular/core';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI } from 'primeng/api/public_api';
 import { Subject, Subscription } from 'rxjs';
-import { FilterUtils } from 'primeng/utils';
+import { FilterUtils } from 'primeng/utils/public_api';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Injectable()
 export class TableService {

@@ -1,10 +1,10 @@
 import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,Directive} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {DropdownModule} from 'primeng/dropdown';
-import {SelectItem} from 'primeng/api';
-import {SharedModule} from 'primeng/api';
-import { WKTModule } from '../wkt/wkt';
+import {DropdownModule} from 'primeng/dropdown/dropdown';
+import {SelectItem} from 'primeng/api/public_api';
+import {SharedModule} from 'primeng/api/public_api';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
     selector: 'p-paginator',

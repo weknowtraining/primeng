@@ -1,7 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy} from '@angular/core';
-import {DomHandler} from 'primeng/dom';
+import {DomHandler} from 'primeng/dom/domhandler';
 import {CommonModule} from '@angular/common';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Directive({
     selector: '[pButton]'

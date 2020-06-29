@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {BlockableUI} from 'primeng/api';
+import {BlockableUI} from 'primeng/api/public_api';
 
 @Component({
     selector: 'p-toolbar',

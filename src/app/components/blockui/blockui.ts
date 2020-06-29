@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,AfterViewInit,OnDestroy,ElementRef,ViewChild,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
+import {DomHandler} from 'primeng/dom/domhandler';
 
 @Component({
     selector: 'p-blockUI',

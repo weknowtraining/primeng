@@ -1,15 +1,15 @@
 import { NgModule, AfterContentInit, OnInit, OnDestroy, HostListener, Injectable, Directive, Component, Input, Output, EventEmitter, ContentChildren, TemplateRef, QueryList, ElementRef, NgZone, ViewChild, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges, ChangeDetectionStrategy} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'primeng/api/public_api';
 import { Subject, Subscription } from 'rxjs';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from 'primeng/dom/domhandler';
 import { PaginatorModule } from 'primeng/paginator';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { SortMeta } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
-import { FilterUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'primeng/api/public_api';
+import { SortMeta } from 'primeng/api/public_api';
+import { BlockableUI } from 'primeng/api/public_api';
+import { FilterMetadata } from 'primeng/api/public_api';
+import { ObjectUtils } from 'primeng/utils/public_api';
+import { FilterUtils } from 'primeng/utils/public_api';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,AfterViewChecked,OnDestroy,Input,Renderer2,Inject,forwardRef,ViewChild,Output,EventEmitter,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {MenuItem} from 'primeng/api';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {MenuItem} from 'primeng/api/public_api';
 import {RouterModule} from '@angular/router';
 
 @Component({

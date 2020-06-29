@@ -1,7 +1,7 @@
 import {NgModule,Directive,ElementRef,HostListener,DoCheck,Optional} from '@angular/core';
 import {NgModel} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Directive({
     selector: '[pInputText]',

@@ -1,13 +1,13 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,EventEmitter,Renderer2,ContentChild,NgZone,ViewChild,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent, useAnimation, animation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {Footer,SharedModule} from 'primeng/api';
-import {ButtonModule} from 'primeng/button';
-import {Confirmation} from 'primeng/api';
-import {ConfirmationService} from 'primeng/api';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {Footer,SharedModule} from 'primeng/api/public_api';
+import {ButtonModule} from 'primeng/button/button';
+import {Confirmation} from 'primeng/api/public_api';
+import {ConfirmationService} from 'primeng/api/public_api';
 import {Subscription}   from 'rxjs';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),

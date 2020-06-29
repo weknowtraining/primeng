@@ -1,8 +1,8 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
+import {SharedModule} from 'primeng/api/public_api';
+import {BlockableUI} from 'primeng/api/public_api';
 
 let idx: number = 0;
 

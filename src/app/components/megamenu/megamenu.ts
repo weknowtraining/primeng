@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,Input,Renderer2,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {MegaMenuItem,MenuItem} from 'primeng/api';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {MegaMenuItem,MenuItem} from 'primeng/api/public_api';
 import {RouterModule} from '@angular/router';
 
 @Component({

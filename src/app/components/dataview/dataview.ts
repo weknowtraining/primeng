@@ -1,11 +1,11 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
-import {PaginatorModule} from 'primeng/paginator';
-import {BlockableUI} from 'primeng/api';
-import {FilterUtils} from 'primeng/utils';
-import { WKTModule } from '../wkt/wkt';
+import {ObjectUtils} from 'primeng/utils/public_api';
+import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api/public_api';
+import {PaginatorModule} from 'primeng/paginator/paginator';
+import {BlockableUI} from 'primeng/api/public_api';
+import {FilterUtils} from 'primeng/utils/public_api';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
     selector: 'p-dataView',

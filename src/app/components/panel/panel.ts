@@ -1,9 +1,9 @@
 import {NgModule,Component,Input,Output,EventEmitter,ElementRef,ContentChild,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Footer} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
+import {SharedModule,Footer} from 'primeng/api/public_api';
+import {BlockableUI} from 'primeng/api/public_api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import { WKTModule } from '@primeng/wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 let idx: number = 0;
 

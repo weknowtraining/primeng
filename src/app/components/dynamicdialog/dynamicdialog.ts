@@ -3,9 +3,9 @@ import { trigger,style,transition,animate,AnimationEvent, animation, useAnimatio
 import { DynamicDialogContent } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from 'primeng/dom/domhandler';
 import { DynamicDialogRef } from './dynamicdialog-ref';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),

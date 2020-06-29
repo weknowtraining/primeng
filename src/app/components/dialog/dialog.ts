@@ -2,10 +2,10 @@ import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,Render
     ContentChildren,QueryList,ViewChild,NgZone, ChangeDetectorRef,ViewRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,style,transition,animate, AnimationEvent, animation, useAnimation} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import {Header,Footer,SharedModule} from 'primeng/api';
-import {FocusTrapModule} from 'primeng/focustrap';
-import { WKTModule } from '../wkt/wkt';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {Header,Footer,SharedModule} from 'primeng/api/public_api';
+import {FocusTrapModule} from 'primeng/focustrap/focustrap';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 let idx: number = 0;
 

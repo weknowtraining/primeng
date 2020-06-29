@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { WKTModule } from '@primeng/wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
     selector: 'p-message',

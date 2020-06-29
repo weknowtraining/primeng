@@ -1,6 +1,6 @@
 import { NgModule, Directive, ElementRef, AfterViewInit, OnDestroy, Input, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from 'primeng/dom/domhandler';
 
 @Directive({
     selector: '[pTooltip]'

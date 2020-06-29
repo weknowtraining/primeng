@@ -1,9 +1,9 @@
 import {NgModule,Component,Input,ChangeDetectorRef,ChangeDetectionStrategy} from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
+import {MenuItem} from 'primeng/api/public_api';
 import {RouterModule} from '@angular/router';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 export class BasePanelMenuItem {
 

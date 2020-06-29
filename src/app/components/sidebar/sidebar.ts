@@ -1,8 +1,8 @@
 import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from 'primeng/dom';
-import { WKTModule } from '../wkt/wkt';
+import {DomHandler} from 'primeng/dom/domhandler';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
     selector: 'p-sidebar',

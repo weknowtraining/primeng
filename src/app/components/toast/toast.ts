@@ -1,12 +1,12 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {PrimeTemplate,SharedModule} from 'primeng/api';
-import {MessageService} from 'primeng/api';
+import {Message} from 'primeng/api/message';
+import {DomHandler} from 'primeng/dom/domhandler';
+import {PrimeTemplate,SharedModule} from 'primeng/api/shared';
+import {MessageService} from 'primeng/api/messageservice';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
-import { WKTModule } from '../wkt/wkt';
+import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
     selector: 'p-toastItem',
