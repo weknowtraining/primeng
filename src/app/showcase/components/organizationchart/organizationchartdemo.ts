@@ -1,6 +1,6 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {TreeNode} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import {TreeNode} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './organizationchartdemo.html',
@@ -168,4 +168,5 @@ export class OrganizationChartDemo implements OnInit {
     onNodeSelect(event) {
         this.messageService.add({severity: 'success', summary: 'Node Selected', detail: event.node.label});
     }
+
 }

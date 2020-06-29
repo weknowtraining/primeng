@@ -6,7 +6,7 @@
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <h3 class="first">Advanced</h3>
     <p>Organization with advanced customization.</p>
@@ -241,6 +241,12 @@ export class MyComponents implements OnInit &#123;
                             <td>null</td>
                             <td>A single treenode instance or an array to refer to the selections.</td>
                         </tr>
+                        <tr>
+                            <td>preserveSpace</td>
+                            <td>boolean</td>
+                            <td>true</td>
+                            <td>Whether the space allocated by a node is preserved when hidden.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -267,6 +273,18 @@ export class MyComponents implements OnInit &#123;
                         <td>event.originalEvent: browser event <br>
                             event.node: Unselected node instance.</td>
                         <td>Callback to invoke when a node is unselected.</td>
+                    </tr>
+                    <tr>
+                        <td>onNodeExpand</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Expanded node instance.</td>
+                        <td>Callback to invoke when a node is expanded.</td>
+                    </tr>
+                    <tr>
+                        <td>onNodeCollapse</td>
+                        <td>event.originalEvent: browser event <br>
+                            event.node: Collapsed node instance.</td>
+                        <td>Callback to invoke when a node is collapsed.</td>
                     </tr>
                 </tbody>
             </table>
@@ -322,7 +340,6 @@ export class MyComponents implements OnInit &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/organizationchart" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>

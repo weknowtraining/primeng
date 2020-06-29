@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {Message} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import {Message,MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './messagesdemo.html',
@@ -12,6 +11,13 @@ import {MessageService} from '../../../components/common/messageservice';
         :host ::ng-deep .ui-message,
         :host ::ng-deep .ui-inputtext {
             margin-right: .25em;
+        }
+
+        :host ::ng-deep .custom-message,
+        :host ::ng-deep img {
+            align-self: center;
+            font-size: 16px;
+            margin-left: .5em;
         }
     `],
     providers: [MessageService]

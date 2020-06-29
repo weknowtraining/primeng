@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
-import {MessageService} from '../../../components/common/messageservice';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './deferdemo.html',
@@ -11,7 +11,7 @@ export class DeferDemo {
 
     cars: Car[];
     
-    constructor(private carService: CarService, private messageService: MessageService) { }
+    constructor(private carService: CarService, private messageService: MessageService) {}
     
     initData() {
         this.messageService.add({severity:'success', summary:'Data Initialized', detail:'Render Completed'});

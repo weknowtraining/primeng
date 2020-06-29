@@ -1,11 +1,36 @@
 import {Component,OnInit} from '@angular/core';
 import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
-import {SelectItem} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import {SelectItem} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './validationdemo.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    styles: [`
+        :host ::ng-deep .forms-grid > div {
+            display: flex;
+            align-items: center;
+            padding: 1em;
+        }
+
+        :host ::ng-deep .forms-grid > div > div:first-child {
+           min-width: 10em;
+        }
+        
+        input, textarea {
+            flex: 1 1 auto;
+        }
+
+        :host ::ng-deep .ui-message {
+            margin-left: 1em;
+        }
+
+        @media screen and (max-width: 64em) {
+            :host ::ng-deep .ui-message-text {
+                display: none;
+            }
+        }
+    `]
 })
 export class ValidationDemo implements OnInit {
     
@@ -24,21 +49,15 @@ export class ValidationDemo implements OnInit {
             'firstname': new FormControl('', Validators.required),
             'lastname': new FormControl('', Validators.required),
             'password': new FormControl('', [Validators.required, Validators.minLength(6)]),
-            'description': new FormControl(''),
-            'gender': new FormControl('', Validators.required)
+            'description': new FormControl('')
         });
-        
-        this.genders = [];
-        this.genders.push({label:'Select Gender', value:''});
-        this.genders.push({label:'Male', value:'Male'});
-        this.genders.push({label:'Female', value:'Female'});
     }
     
     onSubmit(value: string) {
         this.submitted = true;
         this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted', sticky: true});
     }
-    
+
     get diagnostic() { return JSON.stringify(this.userform.value); }
     
 }

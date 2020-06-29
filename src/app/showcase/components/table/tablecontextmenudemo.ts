@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import { MenuItem } from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import { MenuItem } from 'primeng/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './tablecontextmenudemo.html',
@@ -54,4 +54,5 @@ export class TableContextMenuDemo implements OnInit {
         
         this.messageService.add({ severity: 'info', summary: 'Car Deleted', detail: car.vin + ' - ' + car.brand });
     }
+
 }

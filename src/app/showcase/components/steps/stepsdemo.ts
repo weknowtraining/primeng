@@ -1,6 +1,6 @@
 import {Component,OnInit,ViewEncapsulation} from '@angular/core';
-import {MenuItem} from '../../../components/common/api';
-import {MessageService} from '../../../components/common/messageservice';
+import {MenuItem} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -15,7 +15,6 @@ import {MessageService} from '../../../components/common/messageservice';
         }
         
         .ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
-            height: 10px;
             padding: 0 1em;
             overflow: visible;
         }
@@ -75,4 +74,5 @@ export class StepsDemo implements OnInit {
             }
         ];
     }
+
 }

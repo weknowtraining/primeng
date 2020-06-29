@@ -1,8 +1,7 @@
-import {NgModule,Component,OnInit,OnDestroy,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,AfterContentInit,Optional,ElementRef,ChangeDetectionStrategy,ContentChildren,QueryList,TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import {Message} from '../common/message';
-import {MessageService} from '../common/messageservice';
+import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import { YardstickModule } from '../yardstick/yardstick';
 
@@ -10,19 +9,23 @@ import { YardstickModule } from '../yardstick/yardstick';
     selector: 'p-messages',
     template: `
         <div *ngIf="hasMessages()" class="ui-messages ui-widget ui-corner-all"
-                    [ngClass]="{'ui-messages-info':(value[0].severity === 'info'),
-                    'ui-messages-warn':(value[0].severity === 'warn'),
-                    'ui-messages-error':(value[0].severity === 'error'),
-                    'ui-messages-success':(value[0].severity === 'success')}"
-                    [ngStyle]="style" [class]="styleClass" [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
+                    [ngClass]="getSeverityClass()" role="alert" [ngStyle]="style" [class]="styleClass"
+                    [@messageAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}">
             <a tabindex="0" class="ui-messages-close" (click)="clear($event)" (keydown.enter)="clear($event)" *ngIf="closable">
                 <i class="pi pi-times"></i>
             </a>
             <span class="ui-messages-icon pi" [ngClass]="icon"></span>
-            <ul>
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            <ul *ngIf="value && value.length">
                 <li *ngFor="let msg of value">
-                    <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
-                    <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+                    <div *ngIf="!escape; else escapeOut">
+                        <span *ngIf="msg.summary" class="ui-messages-summary" [innerHTML]="msg.summary"></span>
+                        <span *ngIf="msg.detail" class="ui-messages-detail" [innerHTML]="msg.detail"></span>
+                    </div>
+                    <ng-template #escapeOut>
+                        <span *ngIf="msg.summary" class="ui-messages-summary">{{msg.summary}}</span>
+                        <span *ngIf="msg.detail" class="ui-messages-detail">{{msg.detail}}</span>
+                    </ng-template>
                 </li>
             </ul>
         </div>
@@ -44,39 +47,60 @@ import { YardstickModule } from '../yardstick/yardstick';
                 }))
             ])
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
-export class Messages implements OnInit, OnDestroy {
+export class Messages implements AfterContentInit, OnDestroy {
 
     @Input() value: Message[];
 
     @Input() closable: boolean = true;
 
     @Input() style: any;
-    
+
     @Input() styleClass: string;
 
     @Input() enableService: boolean = true;
 
     @Input() key: string;
 
+    @Input() escape: boolean = true;
+
+    @Input() severity: string;
+
     @Input() showTransitionOptions: string = '300ms ease-out';
 
     @Input() hideTransitionOptions: string = '250ms ease-in';
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
-    
+
     messageSubscription: Subscription;
 
     clearSubscription: Subscription;
 
-    constructor(@Optional() public messageService: MessageService) {}
+    contentTemplate: TemplateRef<any>;
 
-    ngOnInit() {
-        if(this.messageService && this.enableService) {
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch(item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                break;
+
+                default:
+                    this.contentTemplate = item.template;
+                break;
+            }
+        });
+
+        if (this.messageService && this.enableService && !this.contentTemplate) {
             this.messageSubscription = this.messageService.messageObserver.subscribe((messages: any) => {
-                if(messages) {
-                    if(messages instanceof Array) {
+                if (messages) {
+                    if (messages instanceof Array) {
                         let filteredMessages = messages.filter(m => this.key === m.key);
                         this.value = this.value ? [...this.value, ...filteredMessages] : [...filteredMessages];
                     }
@@ -100,11 +124,29 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     hasMessages() {
-        return this.value && this.value.length > 0;
+        let parentEl = this.el.nativeElement.parentElement;
+        if (parentEl && parentEl.offsetParent) {
+            return this.contentTemplate != null || this.value && this.value.length > 0;
+        }
+
+        return false;
     }
 
     getSeverityClass() {
-        return this.value[0].severity;
+        if (this.severity) {
+            return 'ui-messages-' + this.severity;
+        }
+        else {
+            const msg = this.value[0];
+            if (msg) {
+                const severities = ['info', 'warn', 'error', 'success'];
+                const severity = severities.find(item => item === msg.severity);
+
+                return severity && `ui-messages-${severity}`;
+            }
+        }
+
+        return null;
     }
 
     clear(event) {
@@ -115,40 +157,40 @@ export class Messages implements OnInit, OnDestroy {
     }
 
     get icon(): string {
-        let icon: string = null;
-        if(this.hasMessages()) {
-            let msg = this.value[0];
-            switch(msg.severity) {
+        const severity = this.severity || (this.hasMessages() ? this.value[0].severity : null);
+
+        if (this.hasMessages()) {
+            switch(severity) {
                 case 'success':
-                    icon = 'pi-check';
+                    return 'pi-check';
                 break;
 
                 case 'info':
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
 
                 case 'error':
-                    icon = 'pi-times';
+                    return 'pi-times';
                 break;
 
                 case 'warn':
-                    icon = 'pi-exclamation-triangle';
+                    return 'pi-exclamation-triangle';
                 break;
 
                 default:
-                    icon = 'pi-info-circle';
+                    return 'pi-info-circle';
                 break;
             }
         }
 
-        return icon;
+        return null;
     }
 
     ngOnDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
-        
+
         if (this.clearSubscription) {
             this.clearSubscription.unsubscribe();
         }

@@ -3,10 +3,14 @@ import { By } from '@angular/platform-browser';
 import { Tooltip } from './tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { InputText } from '../inputtext/inputtext';
+import { InputText } from 'primeng/inputtext';
 
 @Component({
-    template: `<input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position"> `
+    template: `
+        <div style="margin:50px;">
+            <input type="text" pInputText pTooltip="Enter your username" [positionStyle]="positionStyle" [appendTo]="appendTo" [tooltipDisabled]="disabled" [tooltipEvent]="event" [tooltipPosition]="position"> 
+        </div>
+        `
 })
 class TestTooltipComponent {
     position: string ="right";

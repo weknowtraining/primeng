@@ -1,9 +1,24 @@
 .ui-dropdown {
-    display: inline-block;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
     position: relative;
     cursor: pointer;
-    vertical-align: middle;
     min-width: 12.5em;
+}
+
+.ui-dropdown .ui-dropdown-hidden-select {
+    bottom: 0;
+    clip: auto;
+}
+
+.ui-dropdown .ui-dropdown-hidden-select select {
+    -webkit-transform: none;
+    transform: none;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    clip: rect(0px, 0px, 0px, 0px);
+    pointer-events: none;
 }
 
 .ui-dropdown .ui-dropdown-clear-icon {
@@ -44,6 +59,7 @@
     font-weight: normal;
     width: 100%;
     padding-right: 2.5em;
+    font-weight: normal;
 }
 
 .ui-dropdown-item-empty,
@@ -122,7 +138,8 @@
 }
 
 /** Dropdown **/
-.ui-fluid .ui-dropdown {
+.ui-fluid .ui-dropdown,
+.ui-fluid p-dropdown {
     width: 100%;
     min-width: 100%;
 }

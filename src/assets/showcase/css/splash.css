@@ -2,15 +2,15 @@
     left: 50%;
     top: 50%;
     margin-left: -26px;
-    margin-top: -30px;
+    margin-top: -26px;
     z-index: 2;
     position: absolute;
     width: 54px;
 }
 
 .splash-loader,
-.splash-loader:::before,
-.splash-loader:::after {
+.splash-loader:before,
+.splash-loader:after {
   left: 50%;
   top: 50%;
   margin-left: -45px;
@@ -24,11 +24,11 @@
   z-index: 1;
 }
 
-.splash-loader:::before {
+.splash-loader:before {
   content: "";
   animation: bounce 1.5s infinite;
 }
-.splash-loader:::after {
+.splash-loader:after {
   content: "";
   animation: bounce 1.5s -0.4s infinite;
 }

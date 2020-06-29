@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MessageService} from '../../../components/common/messageservice';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './tabviewdemo.html',
@@ -12,4 +12,5 @@ export class TabViewDemo {
     onTabChange(event) {
         this.messageService.add({severity:'info', summary:'Tab Expanded', detail: 'Index: ' + event.index});
     }
+
 }

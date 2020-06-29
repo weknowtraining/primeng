@@ -1,4 +1,4 @@
-import {NgModule,Component,Input,Output,EventEmitter,Optional} from '@angular/core';
+import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { YardstickModule } from '@primeng/yardstick/yardstick';
 
@@ -11,9 +11,15 @@ import { YardstickModule } from '@primeng/yardstick/yardstick';
                 'ui-message-error': (severity === 'error'),
                 'ui-message-success': (severity === 'success')}">
             <span class="ui-message-icon" [ngClass]="icon"></span>
-            <span class="ui-message-text" [innerHTML]="text"></span>
+            <div *ngIf="!escape; else escapeOut">
+                <span *ngIf="!escape" class="ui-message-text" [innerHTML]="text"></span>
+            </div>
+            <ng-template #escapeOut>
+                <span *ngIf="escape" class="ui-message-text">{{text}}</span>
+            </ng-template>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class UIMessage {
 
@@ -21,10 +27,12 @@ export class UIMessage {
 
     @Input() text: string;
 
+    @Input() escape: boolean = true;
+
     get icon(): string {
         let icon: string = null;
 
-        if(this.severity) {
+        if (this.severity) {
             switch(this.severity) {
                 case 'success':
                     icon = 'pi pi-check';

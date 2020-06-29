@@ -1,9 +1,9 @@
-import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef,Directive} from '@angular/core';
+import {NgModule,Component,OnInit,Input,Output,ChangeDetectorRef,EventEmitter,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,Directive} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {DropdownModule} from '../dropdown/dropdown';
-import {SelectItem} from '../common/selectitem';
-import {SharedModule} from '../common/shared';
+import {DropdownModule} from 'primeng/dropdown';
+import {SelectItem} from 'primeng/api';
+import {SharedModule} from 'primeng/api';
 import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
@@ -41,9 +41,10 @@ import { YardstickModule } from '../yardstick/yardstick';
                 <ng-container *ngTemplateOutlet="templateRight; context: {$implicit: paginatorState}"></ng-container>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
-export class Paginator implements OnInit {
+export class Paginator implements OnInit, OnChanges {
 
     @Input() pageLinkSize: number = 5;
 
@@ -67,19 +68,19 @@ export class Paginator implements OnInit {
 
     @Input() showCurrentPageReport: boolean;
 
+    @Input() totalRecords: number = 0;
+
+    @Input() rows: number = 0;
+    
+    @Input() rowsPerPageOptions: any[];
+
     pageLinks: number[];
 
-    _totalRecords: number = 0;
-
-    _first: number = 0;
-
-    _rows: number = 0;
-    
-    _rowsPerPageOptions: number[];
-    
     rowsPerPageItems: SelectItem[];
     
     paginatorState: any;
+
+    _first: number = 0;
 
     constructor(private cd: ChangeDetectorRef) {}
     
@@ -87,47 +88,47 @@ export class Paginator implements OnInit {
         this.updatePaginatorState();
     }
 
-    @Input() get totalRecords(): number {
-        return this._totalRecords;
-    }
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.totalRecords) {
+            this.updatePageLinks();
+            this.updatePaginatorState();
+            this.updateFirst();
+            this.updateRowsPerPageOptions();
+        }
 
-    set totalRecords(val:number) {
-        this._totalRecords = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
-        this.updateFirst();
+        if (simpleChange.first) {
+            this._first = simpleChange.first.currentValue;
+            this.updatePageLinks();
+            this.updatePaginatorState();
+        }
+
+        if (simpleChange.rows) {
+            this.updatePageLinks();
+            this.updatePaginatorState();
+        }
+
+        if (simpleChange.rowsPerPageOptions) {
+            this.updateRowsPerPageOptions();
+        }
     }
 
     @Input() get first(): number {
         return this._first;
     }
-
     set first(val:number) {
         this._first = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
     }
 
-    @Input() get rows(): number {
-        return this._rows;
-    }
-
-    set rows(val:number) {
-        this._rows = val;
-        this.updatePageLinks();
-        this.updatePaginatorState();
-    }
-    
-    @Input() get rowsPerPageOptions(): number[] {
-        return this._rowsPerPageOptions;
-    }
-
-    set rowsPerPageOptions(val:number[]) {
-        this._rowsPerPageOptions = val;
-        if(this._rowsPerPageOptions) {
+    updateRowsPerPageOptions() {
+        if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
-            for(let opt of this._rowsPerPageOptions) {
-                this.rowsPerPageItems.push({label: String(opt), value: opt});
+            for (let opt of this.rowsPerPageOptions) {
+                if (typeof opt == 'object' && opt['showAll']) {
+                    this.rowsPerPageItems.unshift({label: opt['showAll'], value: this.totalRecords});
+                }
+                else {
+                    this.rowsPerPageItems.push({label: String(opt), value: opt});
+                }
             }
         }
     }
@@ -173,8 +174,8 @@ export class Paginator implements OnInit {
     changePage(p :number) {
         var pc = this.getPageCount();
 
-        if(p >= 0 && p < pc) {
-            this.first = this.rows * p;
+        if (p >= 0 && p < pc) {
+            this._first = this.rows * p;
             var state = {
                 page: p,
                 first: this.first,
@@ -190,7 +191,7 @@ export class Paginator implements OnInit {
 
     updateFirst() {
         const page = this.getPage();
-        if (page > 0 && (this.first >= this.totalRecords)) {
+        if (page > 0 && this.totalRecords && (this.first >= this.totalRecords)) {
             Promise.resolve(null).then(() => this.changePage(page - 1));
         }
     }
@@ -200,7 +201,7 @@ export class Paginator implements OnInit {
     }
 
     changePageToFirst(event) {
-      if(!this.isFirstPage()){
+      if (!this.isFirstPage()){
           this.changePage(0);
       }
 
@@ -218,7 +219,7 @@ export class Paginator implements OnInit {
     }
 
     changePageToLast(event) {
-      if(!this.isLastPage()){
+      if (!this.isLastPage()){
           this.changePage(this.getPageCount() - 1);
       }
 
@@ -246,8 +247,12 @@ export class Paginator implements OnInit {
 
     get currentPageReport() {
         return this.currentPageReportTemplate
-            .replace("{currentPage}", (this.getPage() + 1).toString())
-            .replace("{totalPages}", this.getPageCount().toString());
+                .replace("{currentPage}", String(this.getPage() + 1))
+                .replace("{totalPages}", String(this.getPageCount()))
+                .replace("{first}", String(this._first + 1))
+                .replace("{last}", String(Math.min(this._first + this.rows, this.totalRecords)))
+                .replace("{rows}", String(this.rows))
+                .replace("{totalRecords}", String(this.totalRecords));
     }
 }
 

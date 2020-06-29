@@ -1,13 +1,13 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">FileUpload</span>
-        <span>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and
+        <span>FileUpload is an advanced uploader with drag and drop support, multi file uploads, auto uploading, progress tracking and
             validations.</span>
     </div>
 </div>
 
 <div class="content-section implementation">
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast></p-toast>
 
     <h3 class="first">Advanced</h3>
     <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
@@ -23,7 +23,7 @@
     <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
 
     <h3>Basic with Auto</h3>
-    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"></p-fileUpload>
+    <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"></p-fileUpload>
 </div>
 
 <div class="content-section documentation">
@@ -53,14 +53,14 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </pre>
 
             <h3>DragDrop</h3>
-            <p>File selection can also be done by dragging and dropping one or more to the content section of the component.</p>
+            <p>File selection can also be done by dragging and dropping one or more files to the content section of the component.</p>
 
             <h3>Auto Uploads</h3>
             <p>When auto property is enabled, upload begins as soon as file selection is completed or a file is dropped on the drop area.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
-        accept="image/*" auto="auto"&gt;&lt;/p-fileUpload&gt;
+        accept="image/*" [auto]="true"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 
@@ -75,7 +75,7 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
 </pre>
 
             <h3>File Size</h3>
-            <p>Maximium file size can be restricted using maxFileSize property defined in bytes.</p>
+            <p>Maximum file size can be restricted using maxFileSize property defined in bytes.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
@@ -118,11 +118,11 @@ import &#123;FileUploadModule&#125; from 'primeng/fileupload';
             <p>FileUpload basic mode provides a simpler UI as an alternative to advanced mode.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" auto="true"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)" [auto]="true"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
             <h3>Custom Upload</h3>
-            <p>Uploading implementation can be overriden by enabling customMode property and defining a custom upload handler event.</p>
+            <p>Uploading implementation can be overridden by enabling customMode property and defining a custom upload handler event.</p>
 <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"&gt;&lt;/p-fileUpload&gt;
@@ -198,28 +198,46 @@ myUploader(event) &#123;
                             <td>Maximum file size allowed in bytes.</td>
                         </tr>
                         <tr>
+                            <td>fileLimit</td>
+                            <td>number</td>
+                            <td>null</td>
+                            <td>Maximum number of files that can be uploaded.</td>
+                        </tr>
+                        <tr>
                             <td>invalidFileSizeMessageSummary</td>
                             <td>string</td>
                             <td>"&#123;0&#125;: Invalid file size, "</td>
-                            <td>Summary message of the invalid fize size.</td>
+                            <td>Summary message of the invalid file size.</td>
                         </tr>
                         <tr>
                             <td>invalidFileSizeMessageDetail</td>
                             <td>string</td>
                             <td>"maximum upload size is &#123;0&#125;."</td>
-                            <td>Detail message of the invalid fize size.</td>
+                            <td>Detail message of the invalid file size.</td>
                         </tr>
                         <tr>
                             <td>invalidFileTypeMessageSummary</td>
                             <td>string</td>
                             <td>"&#123;0&#125;: Invalid file type, "</td>
-                            <td>Summary message of the invalid fize type.</td>
+                            <td>Summary message of the invalid file type.</td>
+                        </tr>
+                        <tr>
+                            <td>invalidFileLimitMessageDetail</td>
+                            <td>string</td>
+                            <td>"limit is &#123;0&#125; at most."</td>
+                            <td>Detail message of the invalid file type.</td>
+                        </tr>
+                        <tr>
+                            <td>invalidFileLimitMessageSummary</td>
+                            <td>string</td>
+                            <td>"Maximum number of files exceeded, "</td>
+                            <td>Summary message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>invalidFileTypeMessageDetail</td>
                             <td>string</td>
                             <td>"allowed file types: &#123;0&#125;."</td>
-                            <td>Detail message of the invalid fize type.</td>
+                            <td>Detail message of the invalid file type.</td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -258,6 +276,24 @@ myUploader(event) &#123;
                             <td>Label of the cancel button.</td>
                         </tr>
                         <tr>
+                            <td>chooseIcon</td>
+                            <td>string</td>
+                            <td>pi pi-plus</td>
+                            <td>Icon of the choose button.</td>
+                        </tr>
+                        <tr>
+                            <td>uploadIcon</td>
+                            <td>string</td>
+                            <td>pi pi-upload</td>
+                            <td>Icon of the upload button.</td>
+                        </tr>
+                        <tr>
+                            <td>cancelIcon</td>
+                            <td>string</td>
+                            <td>pi pi-times</td>
+                            <td>Icon of the cancel button.</td>
+                        </tr>
+                        <tr>
                             <td>withCredentials</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -293,6 +329,12 @@ myUploader(event) &#123;
                             <td>null</td>
                             <td>List of files to be provide to the FileUpload externally.</td>
                         </tr>
+                        <tr>
+                            <td>headers</td>
+                            <td>HttpHeaders</td>
+                            <td>null</td>
+                            <td>HttpHeaders class represents the header configuration options for an HTTP request.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -311,19 +353,18 @@ myUploader(event) &#123;
                         <tr>
                             <td>onBeforeUpload</td>
                             <td>event.formData: FormData object.</td>
-                            <td>Callback to invoke before file upload begins to customize the request
-                                such as post parameters before the files.</td>
+                            <td>Callback to invoke before file upload is initialized.</td>
                         </tr>
-						<tr>
-                            <td>onBeforeSend</td>
-                            <td>event.formData: FormData object.</td>
-                            <td>Callback to invoke before file send begins to customize the request
-                                such as adding headers.</td>
+                        <tr>
+                            <td>onSend</td>
+                            <td>event.originalEvent: Http Event <br>
+                                event.formData: FormData object.</td>
+                            <td>An event indicating that the request was sent to the server. Useful when a request may be retried multiple times, to distinguish between retries on the final event stream.</td>
                         </tr>
                         <tr>
                             <td>onUpload</td>
-                            <td>event.files: Uploaded files.<br />
-                                event.originalEvent: Http Event</td>
+                            <td>event.originalEvent: Http Event<br />
+                                event.files: Uploaded files.</td>
                             <td>Callback to invoke when file upload is complete.</td>
                         </tr>
                         <tr>
@@ -334,7 +375,7 @@ myUploader(event) &#123;
                         </tr>
                         <tr>
                             <td>onClear</td>
-                            <td>-.</td>
+                            <td>-</td>
                             <td>Callback to invoke when files in queue are removed without uploading using clear all button.</td>
                         </tr>
                         <tr>
@@ -346,7 +387,8 @@ myUploader(event) &#123;
                         <tr>
                             <td>onSelect</td>
                             <td>event.originalEvent: Original browser event. <br />
-                                event.files: List of selected files.</td>
+                                event.files: Selected files of the select event.
+                                event.currentFiles: All files to be uploaded.</td>
                             <td>Callback to invoke when files are selected.</td>
                         </tr>
                         <tr>
@@ -422,7 +464,6 @@ myUploader(event) &#123;
 
         <p-tabPanel header="Source">
             <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/fileupload" class="btn-viewsource" target="_blank">
-                <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
 <pre>
@@ -443,7 +484,7 @@ myUploader(event) &#123;
 &lt;p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"&gt;&lt;/p-fileUpload&gt;
 
 &lt;h3&gt;Basic with Auto&lt;/h3&gt;
-&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" auto="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
+&lt;p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse"&gt;&lt;/p-fileUpload&gt;
 </code>
 </pre>
 

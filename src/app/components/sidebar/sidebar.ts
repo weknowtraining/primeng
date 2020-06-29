@@ -1,7 +1,7 @@
-import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2} from '@angular/core';
+import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output,EventEmitter,ViewChild,ElementRef,Renderer2,ChangeDetectionStrategy} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {DomHandler} from '../dom/domhandler';
+import {DomHandler} from 'primeng/dom';
 import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
@@ -11,8 +11,8 @@ import { YardstickModule } from '../yardstick/yardstick';
             'ui-sidebar-left': (position === 'left'), 'ui-sidebar-right': (position === 'right'),
             'ui-sidebar-top': (position === 'top'), 'ui-sidebar-bottom': (position === 'bottom'), 
             'ui-sidebar-full': fullScreen}"
-            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass">
-            <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)">
+            [@panelState]="visible ? 'visible' : 'hidden'" (@panelState.start)="onAnimationStart($event)" [ngStyle]="style" [class]="styleClass"  role="complementary" [attr.aria-modal]="modal">
+            <a [ngClass]="{'ui-sidebar-close ui-corner-all':true}" *ngIf="showCloseIcon" tabindex="0" role="button" (click)="close($event)" (keydown.enter)="close($event)" [attr.aria-label]="ariaCloseLabel">
                 <span class="pi pi-times"></span>
             </a>
             <ng-content></ng-content>
@@ -29,7 +29,8 @@ import { YardstickModule } from '../yardstick/yardstick';
             transition('visible => hidden', animate('300ms ease-in')),
             transition('hidden => visible', animate('300ms ease-out'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
@@ -45,6 +46,8 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() styleClass: string;
 
+    @Input() ariaCloseLabel: string;
+
     @Input() autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
@@ -57,7 +60,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     @Input() closeOnEscape: boolean = true;
 
-    @ViewChild('container', { static: false }) containerViewChild: ElementRef;
+    @ViewChild('container') containerViewChild: ElementRef;
 
     @Output() onShow: EventEmitter<any> = new EventEmitter();
 
@@ -84,14 +87,14 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     ngAfterViewInit() {
         this.initialized = true;
 
-        if(this.appendTo) {
-            if(this.appendTo === 'body')
+        if (this.appendTo) {
+            if (this.appendTo === 'body')
                 document.body.appendChild(this.containerViewChild.nativeElement);
             else
                 DomHandler.appendChild(this.containerViewChild.nativeElement, this.appendTo);
         }
 
-        if(this.visible) {
+        if (this.visible) {
             this.show();
         }
     }
@@ -103,11 +106,11 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     set visible(val:boolean) {
         this._visible = val;
 
-        if(this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
-            if(this._visible)
+        if (this.initialized && this.containerViewChild && this.containerViewChild.nativeElement) {
+            if (this._visible)
                 this.show();
             else {
-                if(this.preventVisibleChangePropagation)
+                if (this.preventVisibleChangePropagation)
                     this.preventVisibleChangePropagation = false;
                 else
                     this.hide();
@@ -116,7 +119,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     ngAfterViewChecked() {
-        if(this.executePostDisplayActions) {
+        if (this.executePostDisplayActions) {
             this.onShow.emit({});
             this.executePostDisplayActions = false;
         }
@@ -124,11 +127,11 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     show() {
         this.executePostDisplayActions = true;
-        if(this.autoZIndex) {
+        if (this.autoZIndex) {
             this.containerViewChild.nativeElement.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
         }
 
-        if(this.modal) {
+        if (this.modal) {
             this.enableModality();
         }
     }
@@ -136,7 +139,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     hide() {
         this.onHide.emit({});
 
-        if(this.modal) {
+        if (this.modal) {
             this.disableModality();
         }
     }
@@ -149,12 +152,12 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     enableModality() {
-        if(!this.mask) {
+        if (!this.mask) {
             this.mask = document.createElement('div');
             this.mask.style.zIndex = String(parseInt(this.containerViewChild.nativeElement.style.zIndex) - 1);
             DomHandler.addMultipleClasses(this.mask, 'ui-widget-overlay ui-sidebar-mask');
             
-            if(this.dismissible){
+            if (this.dismissible){
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                     if (this.dismissible) {
                         this.close(event);
@@ -163,17 +166,17 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
             }
 
             document.body.appendChild(this.mask);
-            if(this.blockScroll) {
+            if (this.blockScroll) {
                 DomHandler.addClass(document.body, 'ui-overflow-hidden');
             }
         }
     }
 
     disableModality() {
-        if(this.mask) {
+        if (this.mask) {
             this.unbindMaskClickListener();
             document.body.removeChild(this.mask);
-            if(this.blockScroll) {
+            if (this.blockScroll) {
                 DomHandler.removeClass(document.body, 'ui-overflow-hidden');
             }
             this.mask = null;
@@ -205,7 +208,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     unbindDocumentEscapeListener() {
-        if(this.documentEscapeListener) {
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
@@ -226,11 +229,11 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
     ngOnDestroy() {
         this.initialized = false;
 
-        if(this.visible) {
+        if (this.visible) {
             this.hide();
         }
 
-        if(this.appendTo) {
+        if (this.appendTo) {
             this.el.nativeElement.appendChild(this.containerViewChild.nativeElement);
         }
 

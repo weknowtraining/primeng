@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../components/domain/car';
 import { CarService } from '../../service/carservice';
-import {MessageService} from '../../../components/common/messageservice';
+import {MessageService} from 'primeng/api';
 
 @Component({
     templateUrl: './tableselectiondemo.html',
@@ -52,4 +52,5 @@ export class TableSelectionDemo implements OnInit {
     onRowUnselect(event) {
         this.messageService.add({severity:'info', summary:'Car Unselected', detail:'Vin: ' + event.data.vin});
     }
+
 }

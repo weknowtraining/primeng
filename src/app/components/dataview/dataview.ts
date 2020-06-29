@@ -1,9 +1,10 @@
-import {NgModule,Component,ElementRef,OnInit,AfterContentInit,DoCheck,OnDestroy,Input,Output,SimpleChange,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef} from '@angular/core';
+import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ObjectUtils} from '../utils/objectutils';
-import {Header,Footer,PrimeTemplate,SharedModule} from '../common/shared';
-import {PaginatorModule} from '../paginator/paginator';
-import {BlockableUI} from '../common/blockableui';
+import {ObjectUtils} from 'primeng/utils';
+import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
+import {PaginatorModule} from 'primeng/paginator';
+import {BlockableUI} from 'primeng/api';
+import {FilterUtils} from 'primeng/utils';
 import { YardstickModule } from '../yardstick/yardstick';
 
 @Component({
@@ -22,11 +23,11 @@ import { YardstickModule } from '../yardstick/yardstick';
                 [dropdownAppendTo]="paginatorDropdownAppendTo" [dropdownScrollHeight]="paginatorDropdownScrollHeight" [templateLeft]="paginatorLeftTemplate" [templateRight]="paginatorRightTemplate"
                 [currentPageReportTemplate]="currentPageReportTemplate" [showCurrentPageReport]="showCurrentPageReport"></p-paginator>
             <div class="ui-dataview-content ui-widget-content">
-                <div class="ui-g">
+                <div class="p-grid">
                     <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? ((filteredValue||value) | slice:(lazy ? 0 : first):((lazy ? 0 : first) + rows)) : (filteredValue||value)" [ngForTrackBy]="trackBy">
                         <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: rowData, rowIndex: rowIndex}"></ng-container>
                     </ng-template>
-                    <div *ngIf="isEmpty()" class="ui-g-12 ui-dataview-emptymessage">{{emptyMessage}}</div>
+                    <div *ngIf="isEmpty()" class="p-col-12 ui-dataview-emptymessage">{{emptyMessage}}</div>
                 </div>
             </div>
             <p-paginator [rows]="rows" [first]="first" [totalRecords]="totalRecords" [pageLinkSize]="pageLinks" [alwaysShow]="alwaysShowPaginator"
@@ -37,24 +38,25 @@ import { YardstickModule } from '../yardstick/yardstick';
                 <ng-content select="p-footer"></ng-content>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.Default
 })
-export class DataView implements OnInit,AfterContentInit,BlockableUI {
+export class DataView implements OnInit,AfterContentInit,BlockableUI,OnChanges {
 
     @Input() layout: string = 'list';
 
     @Input() paginator: boolean;
 
     @Input() rows: number;
-    
+
     @Input() totalRecords: number;
 
     @Input() pageLinks: number = 5;
-    
-    @Input() rowsPerPageOptions: number[];
+
+    @Input() rowsPerPageOptions: any[];
 
     @Input() paginatorPosition: string = 'bottom';
-    
+
     @Input() alwaysShowPaginator: boolean = true;
 
     @Input() paginatorDropdownAppendTo: any;
@@ -68,7 +70,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() lazy: boolean;
 
     @Input() emptyMessage: string = 'No records found';
-    
+
     @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
 
     @Input() style: any;
@@ -78,25 +80,35 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     @Input() filterBy: string;
-    
+
+    @Input() filterLocale: string;
+
     @Input() loading: boolean;
 
     @Input() loadingIcon: string = 'pi pi-spinner';
 
     @Input() first: number = 0;
 
+    @Input() sortField: string;
+
+    @Input() sortOrder: number;
+
+    @Input() value: any[];
+
     @Output() onPage: EventEmitter<any> = new EventEmitter();
 
     @Output() onSort: EventEmitter<any> = new EventEmitter();
-    
-    @ContentChild(Header, { static: false }) header;
 
-    @ContentChild(Footer, { static: false }) footer;
-    
+    @Output() onChangeLayout: EventEmitter<any> = new EventEmitter();
+
+    @ContentChild(Header) header;
+
+    @ContentChild(Footer) footer;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-    
+
     _value: any[];
-    
+
     listItemTemplate: TemplateRef<any>;
 
     gridItemTemplate: TemplateRef<any>;
@@ -106,58 +118,47 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     paginatorLeftTemplate: TemplateRef<any>;
 
     paginatorRightTemplate: TemplateRef<any>;
-    
+
     filteredValue: any[];
 
     filterValue: string;
 
-    _sortField: string;
-
-    _sortOrder: number = 1;
-
     initialized: boolean;
-    
+
     constructor(public el: ElementRef) {}
 
     ngOnInit() {
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         this.initialized = true;
     }
 
-    @Input() get sortField(): string {
-        return this._sortField;
-    }
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        if (simpleChanges.value) {
+            this._value = simpleChanges.value.currentValue;
+            this.updateTotalRecords();
 
-    set sortField(val: string) {
-        this._sortField = val;
+            if (!this.lazy && this.hasFilter()) {
+                this.filter(this.filterValue);
+            }
+        }
 
-        //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            this.sort();
+        if (simpleChanges.sortField || simpleChanges.sortOrder) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if (!this.lazy || this.initialized) {
+                this.sort();
+            }
         }
     }
 
-    @Input() get sortOrder(): number {
-        return this._sortOrder;
-    }
-    set sortOrder(val: number) {
-        this._sortOrder = val;
-
-         //avoid triggering lazy load prior to lazy initialization at onInit
-        if ( !this.lazy || this.initialized ) {
-            this.sort();
-        }
-    }
-    
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
                 case 'listItem':
                     this.listItemTemplate = item.template;
                 break;
-                
+
                 case 'gridItem':
                     this.gridItemTemplate = item.template;
                 break;
@@ -180,30 +181,21 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             case 'list':
                 this.itemTemplate = this.listItemTemplate;
             break;
-            
+
             case 'grid':
                 this.itemTemplate = this.gridItemTemplate;
             break;
         }
     }
-    
-    @Input() get value(): any[] {
-        return this._value;
-    }
-
-    set value(val:any[]) {
-        this._value = val;
-        this.updateTotalRecords();
-        if (!this.lazy && this.hasFilter()) {
-            this.filter(this.filterValue);
-        }
-    }
 
     changeLayout(layout: string) {
         this.layout = layout;
+        this.onChangeLayout.emit({
+            layout: this.layout
+        });
         this.updateItemTemplate();
     }
-        
+
     updateTotalRecords() {
         this.totalRecords = this.lazy ? this.totalRecords : (this._value ? this._value.length : 0);
     }
@@ -225,7 +217,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
     sort() {
         this.first = 0;
 
-        if(this.lazy) {
+        if (this.lazy) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
         else if (this.value) {
@@ -263,7 +255,7 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
         let data = this.filteredValue||this.value;
         return data == null || data.length == 0;
     }
-    
+
     createLazyLoadMetadata(): any {
         return {
             first: this.first,
@@ -272,27 +264,27 @@ export class DataView implements OnInit,AfterContentInit,BlockableUI {
             sortOrder: this.sortOrder
         };
     }
-    
+
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
-    filter(filter: string) {
+    filter(filter: string, filterMatchMode:string ="contains") {
         this.filterValue = filter;
 
         if (this.value && this.value.length) {
             let searchFields = this.filterBy.split(',');
-            this.filteredValue = ObjectUtils.filter(this.value, searchFields, filter);
-    
+            this.filteredValue = FilterUtils.filter(this.value, searchFields, filter, filterMatchMode, this.filterLocale);
+
             if (this.filteredValue.length === this.value.length ) {
                 this.filteredValue = null;
             }
-    
+
             if (this.paginator) {
                 this.first = 0;
                 this.totalRecords = this.filteredValue ? this.filteredValue.length : this.value ? this.value.length : 0;
             }
-        }       
+        }
     }
 
     hasFilter() {
@@ -330,7 +322,7 @@ export class DataViewLayoutOptions  {
     }
 }
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule, YardstickModule],
+    imports: [CommonModule,SharedModule,PaginatorModule,YardstickModule],
     exports: [DataView,SharedModule,DataViewLayoutOptions],
     declarations: [DataView,DataViewLayoutOptions]
 })
