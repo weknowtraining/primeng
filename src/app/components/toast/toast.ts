@@ -6,7 +6,7 @@ import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-toastItem',
@@ -328,7 +328,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [Toast,SharedModule],
     declarations: [Toast,ToastItem]
 })

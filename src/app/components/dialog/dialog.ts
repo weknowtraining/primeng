@@ -5,7 +5,7 @@ import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
 import {Header,Footer,SharedModule} from 'primeng/api';
 import {FocusTrapModule} from 'primeng/focustrap';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 let idx: number = 0;
 
@@ -668,7 +668,7 @@ export class Dialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,FocusTrapModule,YardstickModule],
+    imports: [CommonModule,FocusTrapModule,WKTModule],
     exports: [Dialog,SharedModule],
     declarations: [Dialog]
 })

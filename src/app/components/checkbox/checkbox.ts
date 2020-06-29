@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,forwardRef,ChangeDetectorRef,ViewChild,ElementRef,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl} from '@angular/forms';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -170,7 +170,7 @@ export class Checkbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [Checkbox],
     declarations: [Checkbox]
 })

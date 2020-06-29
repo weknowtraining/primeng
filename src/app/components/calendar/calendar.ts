@@ -6,7 +6,7 @@ import {ButtonModule} from 'primeng/button';
 import {DomHandler} from 'primeng/dom';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -2517,7 +2517,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,SharedModule,YardstickModule],
+    imports: [CommonModule,ButtonModule,SharedModule,WKTModule],
     exports: [Calendar,ButtonModule,SharedModule],
     declarations: [Calendar]
 })

@@ -1,7 +1,7 @@
 import {NgModule,Directive,Component,ElementRef,EventEmitter,AfterViewInit,Output,OnDestroy,Input,ChangeDetectionStrategy} from '@angular/core';
 import {DomHandler} from 'primeng/dom';
 import {CommonModule} from '@angular/common';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Directive({
     selector: '[pButton]'
@@ -157,7 +157,7 @@ export class Button {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [ButtonDirective,Button],
     declarations: [ButtonDirective,Button]
 })

@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonModule} from 'primeng/button';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -75,7 +75,7 @@ export class Inplace {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,YardstickModule],
+    imports: [CommonModule,ButtonModule,WKTModule],
     exports: [Inplace,InplaceDisplay,InplaceContent,ButtonModule],
     declarations: [Inplace,InplaceDisplay,InplaceContent]
 })

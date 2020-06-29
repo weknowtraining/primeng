@@ -5,7 +5,7 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { DynamicDialogRef } from './dynamicdialog-ref';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -273,7 +273,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-	imports: [CommonModule,YardstickModule],
+	imports: [CommonModule,WKTModule],
 	declarations: [DynamicDialogComponent, DynamicDialogContent],
 	entryComponents: [DynamicDialogComponent]
 })

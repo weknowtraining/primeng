@@ -7,7 +7,7 @@ import {ButtonModule} from 'primeng/button';
 import {Confirmation} from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
 import {Subscription}   from 'rxjs';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -421,7 +421,7 @@ export class ConfirmDialog implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,YardstickModule],
+    imports: [CommonModule,ButtonModule,WKTModule],
     exports: [ConfirmDialog,ButtonModule,SharedModule],
     declarations: [ConfirmDialog]
 })

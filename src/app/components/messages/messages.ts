@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {trigger,state,style,transition,animate} from '@angular/animations';
 import {Message,PrimeTemplate,MessageService} from 'primeng/api';
 import {Subscription} from 'rxjs';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-messages',
@@ -198,7 +198,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [Messages],
     declarations: [Messages]
 })

@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
 import {SharedModule} from 'primeng/api';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-paginator',
@@ -261,7 +261,7 @@ export class Paginator implements OnInit, OnChanges {
     // tslint:disable-next-line
     selector: 'p-paginator'
 })
-export class YardstickPaginator implements OnInit {
+export class WKTPaginator implements OnInit {
     constructor(private paginator: Paginator) { }
 
     ngOnInit() {
@@ -272,8 +272,8 @@ export class YardstickPaginator implements OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule,DropdownModule,FormsModule,SharedModule,YardstickModule],
-    exports: [Paginator,DropdownModule,FormsModule,SharedModule,YardstickPaginator],
-    declarations: [Paginator,YardstickPaginator]
+    imports: [CommonModule,DropdownModule,FormsModule,SharedModule,WKTModule],
+    exports: [Paginator,DropdownModule,FormsModule,SharedModule,WKTPaginator],
+    declarations: [Paginator,WKTPaginator]
 })
 export class PaginatorModule { }

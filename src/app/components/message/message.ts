@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { YardstickModule } from '@primeng/yardstick/yardstick';
+import { WKTModule } from '@primeng/wkt/wkt';
 
 @Component({
     selector: 'p-message',
@@ -61,7 +61,7 @@ export class UIMessage {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [UIMessage],
     declarations: [UIMessage]
 })

@@ -2,7 +2,7 @@ import {NgModule,Component,AfterViewInit,AfterViewChecked,OnDestroy,Input,Output
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-sidebar',
@@ -242,7 +242,7 @@ export class Sidebar implements AfterViewInit, AfterViewChecked, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [Sidebar],
     declarations: [Sidebar]
 })

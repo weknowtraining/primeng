@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate} from 'primeng/api';
 import {InputTextModule} from 'primeng/inputtext';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 export const CHIPS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -284,7 +284,7 @@ export class Chips implements AfterContentInit,ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule,InputTextModule,SharedModule,YardstickModule],
+    imports: [CommonModule,InputTextModule,SharedModule,WKTModule],
     exports: [Chips,InputTextModule,SharedModule],
     declarations: [Chips]
 })

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {SharedModule,Footer} from 'primeng/api';
 import {BlockableUI} from 'primeng/api';
 import {trigger,state,style,transition,animate} from '@angular/animations';
-import { YardstickModule } from '@primeng/yardstick/yardstick';
+import { WKTModule } from '@primeng/wkt/wkt';
 
 let idx: number = 0;
 
@@ -142,7 +142,7 @@ export class Panel implements BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule,YardstickModule],
+    imports: [CommonModule,WKTModule],
     exports: [Panel,SharedModule],
     declarations: [Panel]
 })

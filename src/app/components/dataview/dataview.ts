@@ -5,7 +5,7 @@ import {Header,Footer,PrimeTemplate,SharedModule} from 'primeng/api';
 import {PaginatorModule} from 'primeng/paginator';
 import {BlockableUI} from 'primeng/api';
 import {FilterUtils} from 'primeng/utils';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-dataView',
@@ -322,7 +322,7 @@ export class DataViewLayoutOptions  {
     }
 }
 @NgModule({
-    imports: [CommonModule,SharedModule,PaginatorModule,YardstickModule],
+    imports: [CommonModule,SharedModule,PaginatorModule,WKTModule],
     exports: [DataView,SharedModule,DataViewLayoutOptions],
     declarations: [DataView,DataViewLayoutOptions]
 })

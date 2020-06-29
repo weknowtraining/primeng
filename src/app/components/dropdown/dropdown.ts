@@ -10,7 +10,7 @@ import {ObjectUtils} from 'primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import { FilterUtils } from 'primeng/utils';
 import {TooltipModule} from 'primeng/tooltip';
-import { YardstickModule } from '../yardstick/yardstick';
+import { WKTModule } from '../wkt/wkt';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -1114,7 +1114,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 }
 
 @NgModule({
-    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,YardstickModule],
+    imports: [CommonModule,SharedModule,ScrollingModule,TooltipModule,WKTModule],
     exports: [Dropdown,SharedModule,ScrollingModule],
     declarations: [Dropdown,DropdownItem]
 })
