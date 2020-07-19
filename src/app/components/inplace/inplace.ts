@@ -1,6 +1,6 @@
 import {NgModule,Component,Input,Output,EventEmitter,ChangeDetectionStrategy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
+import {ButtonModule} from 'primeng/button/button';
 import { WKTModule } from 'primeng/wkt/wkt';
 
 @Component({
