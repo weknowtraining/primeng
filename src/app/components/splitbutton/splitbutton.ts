@@ -3,7 +3,7 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom/domhandler';
 import {MenuItem} from 'primeng/api/public_api';
-import {ButtonModule} from 'primeng/button';
+import {ButtonModule} from 'primeng/button/button';
 import {Router} from '@angular/router';
 import {RouterModule} from '@angular/router';
 import { UniqueComponentId } from 'primeng/utils/public_api';
