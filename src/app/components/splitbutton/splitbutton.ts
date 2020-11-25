@@ -3,17 +3,18 @@ import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/an
 import {CommonModule} from '@angular/common';
 import {DomHandler} from 'primeng/dom/domhandler';
 import {MenuItem} from 'primeng/api/public_api';
-import {ButtonModule} from 'primeng/button';
+import {ButtonModule} from 'primeng/button/button';
 import {Router} from '@angular/router';
 import {RouterModule} from '@angular/router';
 import { UniqueComponentId } from 'primeng/utils/public_api';
+import { WKTModule } from '../wkt/wkt';
 
 @Component({
     selector: 'p-splitButton',
     template: `
         <div #container [ngClass]="{'ui-splitbutton ui-buttonset ui-widget':true}" [ngStyle]="style" [class]="styleClass">
             <button #defaultbtn type="button" pButton [icon]="icon" [iconPos]="iconPos" [label]="label" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-right': 'ui-corner-left'" (click)="onDefaultButtonClick($event)" [disabled]="disabled" [attr.tabindex]="tabindex">
-            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="pi pi-chevron-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
+            </button><button type="button" pButton class="ui-splitbutton-menubutton" icon="fa fa-chevron-down" [cornerStyleClass]="dir === 'rtl' ? 'ui-corner-left': 'ui-corner-right'" (click)="onDropdownButtonClick($event)" [disabled]="disabled"></button>
             <div [attr.id]="ariaId + '_overlay'" #overlay [ngClass]="'ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow'" *ngIf="overlayVisible"
                     [ngStyle]="menuStyle" [class]="menuStyleClass"
                     [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
@@ -237,7 +238,7 @@ export class SplitButton implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule,ButtonModule,RouterModule],
+    imports: [CommonModule,ButtonModule,RouterModule,WKTModule],
     exports: [SplitButton,ButtonModule,RouterModule],
     declarations: [SplitButton]
 })
